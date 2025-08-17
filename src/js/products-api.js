@@ -25,3 +25,8 @@ export const fetchProducts = async currentPage => {
   });
   return data;
 };
+
+export const fetchProductByCategory = async catName => {
+  const { data } = await axios(`${ENDPOINTS.CATEGORY}${catName}`);
+  return data;
+};

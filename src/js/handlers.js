@@ -1,7 +1,11 @@
 import iziToast from 'izitoast';
 import { activeFirstBtn } from './helpers';
-import { fetchCategories, fetchProducts } from './products-api';
-import { renderCategories, renderProducts } from './render-function';
+import {
+  fetchCategories,
+  fetchProductByCategory,
+  fetchProducts,
+} from './products-api';
+import { clearHTML, renderCategories, renderProducts } from './render-function';
 
 let currentPage = 1;
 
@@ -24,5 +28,17 @@ export const getProducts = async () => {
     iziToast.error({
       message: err,
     });
+  }
+};
+
+export const getProductsByCategory = async e => {
+  if (e.target.nodeName !== 'BUTTON') return;
+  try {
+    const catName = e.target.textContent;
+    const data = await fetchProductByCategory(catName);
+    clearHTML();
+    renderProducts(data.products);
+  } catch (error) {
+    console.log(error);
   }
 };

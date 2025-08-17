@@ -1,9 +1,13 @@
 import iziToast from 'izitoast';
 import { activeFirstBtn } from './helpers';
-import { fetchCategories, fetchProducts } from './products-api';
-import { renderCategories, renderProducts } from './render-function';
 import { PAGE_SIZE } from './constants';
 import { refs } from './refs';
+import {
+  fetchCategories,
+  fetchProductByCategory,
+  fetchProducts,
+} from './products-api';
+import { clearHTML, renderCategories, renderProducts } from './render-function';
 
 let currentPage = 1;
 let totalPages = 0;
@@ -57,12 +61,24 @@ export const loadMore = async () => {
       const result = await fetchProducts(currentPage);
       renderProducts(result.products);
       refs.loadMoreBtn.classList.add('is-hidden');
-
-      iziToast.warning({
-        message: 'No more products available',
-        messageColor: 'orangered',
-      });
     }
+  } catch (error) {
+    iziToast.warning({
+      message: 'No more products available',
+      messageColor: 'orangered',
+    });
+  }
+}
+
+
+
+export const getProductsByCategory = async e => {
+  if (e.target.nodeName !== 'BUTTON') return;
+  try {
+    const catName = e.target.textContent;
+    const data = await fetchProductByCategory(catName);
+    clearHTML();
+    renderProducts(data.products);
   } catch (error) {
     console.log(error);
   }

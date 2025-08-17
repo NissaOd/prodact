@@ -11,3 +11,23 @@ export const renderCategories = data => {
 
   refs.categoryList.innerHTML = markup;
 };
+
+export const renderProducts = data => {
+  const markup = data
+    .map(
+      product => `<li class="products__item" data-id="${product.id}">
+    <img class="products__image" src="${product.thumbnail}" alt="${product.description}"/>
+    <p class="products__title">${product.title}</p>
+    <p class="products__brand"><span class="products__brand--bold">Brand: ${product.brand}</span></p>
+    <p class="products__category">Category: ${product.category} </p>
+    <p class="products__price">Price: ${product.price} $</p>
+ </li>`
+    )
+    .join('');
+
+  refs.productList.insertAdjacentHTML('beforeend', markup);
+};
+
+export const clearHTML = () => {
+  refs.productList.innerHTML = '';
+};

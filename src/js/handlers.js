@@ -22,11 +22,17 @@ export const getCategories = async () => {
 export const getProducts = async () => {
   try {
     const result = await fetchProducts(currentPage);
-    totalPages = result.total / PAGE_SIZE;
+    if (refs.loadMoreBtn.classList.contains('is-hidden')) {
+      totalPages = Math.ceil(result.total / PAGE_SIZE);
+      console.log(totalPages);
+    }
     renderProducts(result.products);
     if (totalPages > currentPage) {
       refs.loadMoreBtn.classList.remove('is-hidden');
-    } else if (totalPages === currentPage) {
+    } else if (
+      totalPages === currentPage &&
+      !refs.loadMoreBtn.classList.contains('is-hidden')
+    ) {
       refs.loadMoreBtn.classList.add('is-hidden');
     }
   } catch (err) {
@@ -38,17 +44,23 @@ export const getProducts = async () => {
 
 export const loadMore = async () => {
   try {
-    if (totalPages > 1) {
-      currentPage++;
+    currentPage++;
+    if (totalPages > currentPage) {
       const result = await fetchProducts(currentPage);
       renderProducts(result.products);
       refs.loadMoreBtn.classList.remove('is-hidden');
-    } else if (totalPages === currentPage) {
-      refs.loadMoreBtn.classList.add('is-hidden');
+    } else if (
+      totalPages === currentPage &&
+      !refs.loadMoreBtn.classList.contains('is-hidden')
+    ) {
+      console.log(totalPages);
       const result = await fetchProducts(currentPage);
       renderProducts(result.products);
+      refs.loadMoreBtn.classList.add('is-hidden');
+
       iziToast.warning({
         message: 'No more products available',
+        messageColor: 'orangered',
       });
     }
   } catch (error) {

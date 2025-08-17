@@ -1,5 +1,7 @@
 //Логіка сторінки Home
 
-import { getCategories } from './js/handlers';
+import { getCategories, getProducts } from './js/handlers';
 
 getCategories();
+
+getProducts();

@@ -1,1 +1,3 @@
-//Логіка сторінки Cart
+import { initSavedProducts } from './js/saved-products';
+
+initSavedProducts('cart');

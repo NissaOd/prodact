@@ -1,1 +1,3 @@
-//Логіка сторінки Wishlist
+import { initSavedProducts } from './js/saved-products';
+
+initSavedProducts('wishlist');

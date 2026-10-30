@@ -1,1 +1,1 @@
-{"version":3,"file":"wishlist.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"wishlist.js","sources":["../src/wishlist.js"],"sourcesContent":["import { initSavedProducts } from './js/saved-products';\n\ninitSavedProducts('wishlist');\n"],"names":["initSavedProducts"],"mappings":"sFAEAA,EAAkB,UAAU"}

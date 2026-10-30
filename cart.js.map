@@ -1,1 +1,1 @@
-{"version":3,"file":"cart.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"cart.js","sources":["../src/cart.js"],"sourcesContent":["import { initSavedProducts } from './js/saved-products';\n\ninitSavedProducts('cart');\n"],"names":["initSavedProducts"],"mappings":"sFAEAA,EAAkB,MAAM"}
